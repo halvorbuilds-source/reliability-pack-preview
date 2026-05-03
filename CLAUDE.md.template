@@ -1,0 +1,100 @@
+# <PROJECT NAME>
+
+> Drop-in CLAUDE.md template from the Reliability Pack.
+> Replace `<...>` placeholders with your project's specifics, then DELETE this comment block.
+> Stay under ~200 lines total — auto-loaded CLAUDE.md is the #1 source of token-bill spikes.
+> Anything beyond ~200 lines belongs in `docs/` or a per-package `CLAUDE.md`, not here.
+
+## What this project is
+
+<2-4 sentence description. What it does, what it's for, who runs it.>
+
+## Stack at a glance
+
+- **Language(s):** <e.g., TypeScript 5.4, Python 3.13>
+- **Runtime:** <e.g., Node 24 LTS, Python in venv at .venv>
+- **Test command:** `<e.g., npm test>` — must pass before any commit.
+- **Type check:** `<e.g., npm run typecheck>` — must pass before any commit.
+- **Linter:** `<e.g., npm run lint -- --fix>` — auto-fix; no need to ask.
+- **Package manager:** `<npm | pnpm | uv | poetry>` — do not switch.
+
+## Repo shape (only the parts agents need)
+
+```
+<src/        — production code>
+<tests/      — test files mirror src/ layout>
+<scripts/    — one-off ops scripts; safe to read, ask before running>
+<.env.example — copy to .env, never commit .env>
+```
+
+If you need to know what's in a directory, list it (`ls`/`Glob`); do
+not load this file with a tree of the whole repo.
+
+## Delegation table — when to use which subagent
+
+| Task shape | Use |
+|---|---|
+| Touches 3+ files, has trade-offs | Delegate to **planner** first, then **implementer** |
+| Plan exists, just execute it | Delegate to **implementer** |
+| Same error after 2 fix attempts | Delegate to **debugger** |
+| Code is "done" — verify before merge | Delegate to **reviewer** |
+| Single-file change, scope is obvious | Main agent does it directly — no delegation |
+
+These match the subagents shipped in the Reliability Pack. If you have
+not installed them, delete this section.
+
+## Skills installed (and when they fire)
+
+| Skill | Fires when the user says |
+|---|---|
+| code-review | "review", "look at", "audit", "check" + a diff or file |
+| test-generation | "write tests", "add tests", "test this", "cover this" |
+| refactor | "refactor", "clean up", "extract", "rename", "split", "DRY up" |
+| doc-writing | "document", "write a README", "add docs", "docstring" |
+| pr-description | "write a PR", "draft a PR description", "summarize the branch" |
+| debug-loop-breaker | Same error after two fix attempts; "still broken", "didn't work" |
+
+If the right skill doesn't fire, the activation hook
+(`force-skill-eval.sh`) is either not installed or its path in
+`settings.json` is wrong — see the Reliability Pack README.
+
+## Conventions you must follow
+
+- **Comments:** default to none. Only write a comment when the WHY is
+  non-obvious. Never explain WHAT well-named code already shows.
+- **Error handling:** validate at system boundaries (user input,
+  external APIs). Trust internal code. No defensive checks for
+  scenarios that can't happen.
+- **Tests:** match the existing test framework. Never introduce a new
+  one without explicit ask. Detect first (read `package.json`,
+  `pyproject.toml`, etc.) — never guess.
+- **Imports:** match existing project style (relative vs absolute,
+  named vs default, alphabetical or not). Read a sibling file before
+  writing.
+- **Commits:** never amend pushed commits. Never `--no-verify`. Never
+  `git push --force` to <main branch name>.
+- **No new abstractions for hypothetical needs.** Three similar lines
+  is fine. Build the abstraction the third time it's actually needed.
+
+## What NOT to do without asking
+
+- Add a new dependency. List the candidate, the size, and the alternative.
+- Change `package.json` / `pyproject.toml` scripts.
+- Rename or delete files outside the immediate scope of the task.
+- Touch CI config (`.github/workflows/`, `vercel.json`, `vercel.ts`).
+- Run `npm publish`, `pnpm publish`, or any deploy command.
+
+## Where to find more (do NOT auto-load these)
+
+- `<docs/architecture.md>` — read on demand for design questions
+- `<docs/runbooks/>` — read on demand for ops/incident questions
+- `<scripts/README.md>` — read on demand before running scripts
+
+## Halvor's installer footnote
+
+This template ships with the Claude Code Reliability Pack. If you
+trimmed sections out, that's fine — the only load-bearing parts for
+the activation hook + subagents are the **Delegation table** and
+**Skills installed** sections, because they prime the model to look for
+the matching delegation/activation patterns the hook injects on every
+prompt.
