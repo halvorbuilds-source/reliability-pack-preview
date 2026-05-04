@@ -4,7 +4,7 @@ Most Claude Code skills activate ~50% of the time. Mine activate ~94%.
 
 This is the **free preview** — the activation hook + one sample skill. Drop them into `~/.claude/`, restart Claude Code, and skill activation jumps immediately.
 
-The full pack (`6 skills + 4 subagents + the hook + CLAUDE.md template + 30-page PLAYBOOK`) is `$49` here: **https://halvorbuilds.gumroad.com/l/buedv**
+The full pack (`6 skills + 4 subagents + the hook + CLAUDE.md template + 30-page PLAYBOOK`) is `$29` here: **https://halvorbuilds.gumroad.com/l/buedv**
 
 ---
 
@@ -59,7 +59,7 @@ Three things that move the needle, all in this preview:
 2. **A pre-prompt hook** that forces eval-before-act. That's `force-skill-eval.sh`.
 3. **A `CLAUDE.md` under ~200 lines** so the delegation table stays in attention. The template is exactly that.
 
-The full pack adds 5 more skills, 4 scoped subagents, the full settings.json, and a 30-page PLAYBOOK with 8 failure modes + cited fixes for each. **`$49` — https://halvorbuilds.gumroad.com/l/buedv**
+The full pack adds 5 more skills, 4 scoped subagents, the full settings.json, and a 30-page PLAYBOOK with 8 failure modes + cited fixes for each. **`$29` — https://halvorbuilds.gumroad.com/l/buedv**
 
 ## License
 
